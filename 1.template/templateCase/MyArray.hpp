@@ -86,13 +86,14 @@ public:
         {
             // 对于MyArray和T这两个类都要重构operator=
             // 此处要求后者自定义类型的T重载operator=，它的具体实现在T的自定义类型中，例如Person类中
-            // 但若自定义数据类型没在堆区开辟内存，可以采用编译器默认的赋值运算符，则用写重载了
+            // 但若自定义数据类型没在堆区开辟内存，可以采用编译器默认的赋值运算符，则不用写重载了
             // 若有在堆区开辟内存，则需要重载operator=解决浅拷贝问题，且重载operator=后不再拥有默认的赋值运算符
             this->pAddress[i] = arr.pAddress[i]; // 对于自定义类型的T，需要重构operator=，才能赋值
         }
     }
 
     // 重载operator=防止浅拷贝问题。对于MyArray和T这两个类都要重构operator=，此处是前者
+    // 这里参数列表()中可以传入常对象，是因为它并没有调用成员函数。如果调用了成员函数则不能加const
     MyArray &operator=(const MyArray &arr) // 链式法则返回类型是MyArray &，实现 a = b = c
     {
         // cout << "MyArray的operator=调用" << endl;
@@ -116,7 +117,7 @@ public:
         {
             // 对于MyArray和T这两个类都要重构operator=
             // 此处要求后者自定义类型的T重载operator=，它的具体实现在T的自定义类型中，例如Person类中
-            // 但若自定义数据类型没在堆区开辟内存，可以采用编译器默认的赋值运算符，则用写重载了
+            // 但若自定义数据类型没在堆区开辟内存，可以采用编译器默认的赋值运算符，则不用写重载了
             // 若有在堆区开辟内存，则需要重载operator=解决浅拷贝问题，且重载operator=后不再拥有默认的赋值运算符
             this->pAddress[i] = arr.pAddress[i]; // 对于自定义类型的T，需要重构operator=，才能赋值
         }
